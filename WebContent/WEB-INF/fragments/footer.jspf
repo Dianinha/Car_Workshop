@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<footer class="footer">
+ 
+    <div class="container">
+        <div class="row">
+            <div class="col-sm"><a href="#">O nas</a> | 
+            <a href="#">Złóż zamówienie</a> | 
+            <a href="#">CRM</a></div>
+            <span class="text-muted">Proudly made by Dianinha. Template by Dianinha.munsh</span>
+        </div>
+     </div>
+    </footer>

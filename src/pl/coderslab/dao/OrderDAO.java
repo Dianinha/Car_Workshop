@@ -21,8 +21,8 @@ public class OrderDAO {
 			ResultSet rs = st.executeQuery("SELECT * FROM Orders");
 			while (rs.next()) {
 				Order tmpOrder = new Order();
-				tmpOrder.setAcceptance(rs.getTimestamp("accepted").toLocalDateTime())
-						.setRepairStartTime(rs.getTimestamp("startTime").toLocalDateTime());
+				tmpOrder.setAcceptance(rs.getTimestamp("accepted").toLocalDateTime());
+						
 				Employee assigned = EmployeeDAO.loadById(conn, rs.getInt("worker_id"));
 				tmpOrder.setAssignedWorker(assigned).setProblemDescription(rs.getString("problem_desc"))
 						.setRepairDescription(rs.getString("solution_desc")).setStatus(rs.getInt("status"));
@@ -30,6 +30,12 @@ public class OrderDAO {
 				tmpOrder.setVehicle(vehicle).setRepairTime(rs.getDouble("repairTime"))
 						.setRepairCost(rs.getDouble("repair_cost")).setPartsCost(rs.getDouble("parts_cost"))
 						.setCostPerHour();
+				if (rs.getTimestamp("startTime")!=null) {
+					tmpOrder.setRepairStartTime(rs.getTimestamp("startTime").toLocalDateTime());
+				} 
+				if (rs.getTimestamp("endTime")!=null) {
+					tmpOrder.setRepairEndTime(rs.getTimestamp("endTime").toLocalDateTime());
+				} 
 				tmpOrder.setId(rs.getInt("id"));
 				Orders.add(tmpOrder);
 			}
@@ -51,8 +57,7 @@ public class OrderDAO {
 			ResultSet rs = st.executeQuery("SELECT * FROM Orders WHERE status="+status);
 			while (rs.next()) {
 				Order tmpOrder = new Order();
-				tmpOrder.setAcceptance(rs.getTimestamp("accepted").toLocalDateTime())
-						.setRepairStartTime(rs.getTimestamp("startTime").toLocalDateTime());
+				tmpOrder.setAcceptance(rs.getTimestamp("accepted").toLocalDateTime());
 				Employee assigned = EmployeeDAO.loadById(conn, rs.getInt("worker_id"));
 				tmpOrder.setAssignedWorker(assigned).setProblemDescription(rs.getString("problem_desc"))
 						.setRepairDescription(rs.getString("solution_desc")).setStatus(rs.getInt("status"));
@@ -60,6 +65,12 @@ public class OrderDAO {
 				tmpOrder.setVehicle(vehicle).setRepairTime(rs.getDouble("repairTime"))
 						.setRepairCost(rs.getDouble("repair_cost")).setPartsCost(rs.getDouble("parts_cost"))
 						.setCostPerHour();
+				if (rs.getTimestamp("startTime")!=null) {
+					tmpOrder.setRepairStartTime(rs.getTimestamp("startTime").toLocalDateTime());
+				} 
+				if (rs.getTimestamp("endTime")!=null) {
+					tmpOrder.setRepairEndTime(rs.getTimestamp("endTime").toLocalDateTime());
+				} 
 				tmpOrder.setId(rs.getInt("id"));
 				Orders.add(tmpOrder);
 			}
@@ -76,12 +87,18 @@ public class OrderDAO {
 	public static boolean saveToDB(Connection conn, Order order) {
 		boolean result = false;
 		if (order.getId() == 0) {
-			String query = "INSERT INTO Orders VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String query = "INSERT INTO Orders VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			String[] generatedColumns = { "id" };
 			try {
 				PreparedStatement pst = conn.prepareStatement(query, generatedColumns);
 				pst.setTimestamp(1, java.sql.Timestamp.valueOf(order.getAcceptance()));
-				pst.setTimestamp(2, java.sql.Timestamp.valueOf(order.getRepairStartTime()));
+				if (order.getRepairStartTime()==null){
+					pst.setTimestamp(2, null);
+				}
+				else {
+					pst.setTimestamp(2, java.sql.Timestamp.valueOf(order.getRepairStartTime()));
+				}
+				
 				pst.setInt(3, order.getAssignedWorker().getId());
 				pst.setString(4, order.getProblemDescription());
 				pst.setString(5, order.getRepairDescription());
@@ -90,7 +107,12 @@ public class OrderDAO {
 				pst.setDouble(8, order.getRepairCost());
 				pst.setDouble(9, order.getPartsCost());
 				pst.setDouble(10, order.getRepairTime());
-
+				if (order.getRepairEndTime()==null){
+					pst.setTimestamp(11, null);
+				}
+				else {
+					pst.setTimestamp(11, java.sql.Timestamp.valueOf(order.getRepairEndTime()));
+				}
 				pst.executeUpdate();
 				ResultSet rs = pst.getGeneratedKeys();
 				if (rs.next()) {
@@ -104,10 +126,15 @@ public class OrderDAO {
 		} else {
 			try {
 				PreparedStatement pst = conn.prepareStatement(
-						"UPDATE Orders SET accepted=?, startTime=?, worker_id=?, problem_desc=?, solution_desc=?, status=?, vehicle_id=?, repair_cost=?, parts_cost=?, repairTime=? WHERE id=?");
+						"UPDATE Orders SET accepted=?, startTime=?, worker_id=?, problem_desc=?, solution_desc=?, status=?, vehicle_id=?, repair_cost=?, parts_cost=?, repairTime=?, endTime=? WHERE id=?");
 
 				pst.setTimestamp(1, java.sql.Timestamp.valueOf(order.getAcceptance()));
-				pst.setTimestamp(2, java.sql.Timestamp.valueOf(order.getRepairStartTime()));
+				if (order.getRepairStartTime()==null){
+					pst.setTimestamp(2, null);
+				}
+				else {
+					pst.setTimestamp(2, java.sql.Timestamp.valueOf(order.getRepairStartTime()));
+				}
 				pst.setInt(3, order.getAssignedWorker().getId());
 				pst.setString(4, order.getProblemDescription());
 				pst.setString(5, order.getRepairDescription());
@@ -116,8 +143,13 @@ public class OrderDAO {
 				pst.setDouble(8, order.getRepairCost());
 				pst.setDouble(9, order.getPartsCost());
 				pst.setDouble(10, order.getRepairTime());
-
-				pst.setInt(11, order.getId());
+				if (order.getRepairEndTime()==null){
+					pst.setTimestamp(11, null);
+				}
+				else {
+					pst.setTimestamp(11, java.sql.Timestamp.valueOf(order.getRepairEndTime()));
+				}
+				pst.setInt(12, order.getId());
 
 				pst.executeUpdate();
 				result = true;
@@ -139,8 +171,7 @@ public class OrderDAO {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				tmpOrder.setAcceptance(rs.getTimestamp("accepted").toLocalDateTime())
-						.setRepairStartTime(rs.getTimestamp("startTime").toLocalDateTime());
+				tmpOrder.setAcceptance(rs.getTimestamp("accepted").toLocalDateTime());
 				Employee assigned = EmployeeDAO.loadById(conn, rs.getInt("worker_id"));
 				tmpOrder.setAssignedWorker(assigned).setProblemDescription(rs.getString("problem_desc"))
 						.setRepairDescription(rs.getString("solution_desc")).setStatus(rs.getInt("status"));
@@ -148,6 +179,12 @@ public class OrderDAO {
 				tmpOrder.setVehicle(vehicle).setRepairTime(rs.getDouble("repairTime"))
 						.setRepairCost(rs.getDouble("repair_cost")).setPartsCost(rs.getDouble("parts_cost"))
 						.setCostPerHour();
+				if (rs.getTimestamp("startTime")!=null) {
+					tmpOrder.setRepairStartTime(rs.getTimestamp("startTime").toLocalDateTime());
+				} 
+				if (rs.getTimestamp("endTime")!=null) {
+					tmpOrder.setRepairEndTime(rs.getTimestamp("endTime").toLocalDateTime());
+				} 
 				tmpOrder.setId(rs.getInt("id"));
 			}
 
@@ -158,14 +195,33 @@ public class OrderDAO {
 		return tmpOrder;
 
 	}
-
-	public static boolean delete(Connection conn, Order order) {
+	
+	public static boolean changeStatus(Connection conn, int id, int status) {
 		boolean result = false;
-		String query = "DELETE FROM Orders WHERE id=?";
+		String query = "UPDATE Orders SET status=? WHERE id=?";
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, order.getId());
+			ps.setInt(1, status);
+			ps.setInt(2, id);
+			ps.executeUpdate();
+			System.out.println("Usunięto");
+			result = true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+
+	public static boolean delete(Connection conn, int id) {
+		boolean result = false;
+		String query = "UPDATE Orders SET status=5 WHERE id=?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, id);
 			ps.executeUpdate();
 			System.out.println("Usunięto");
 			result = true;

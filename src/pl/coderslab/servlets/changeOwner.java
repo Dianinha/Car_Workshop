@@ -33,8 +33,8 @@ public class changeOwner extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(request.getParameter("customers"));
 		String tmp = request.getParameter("customers");
-		int newOwnerId = Integer.parseInt(tmp.substring(0, tmp.indexOf('_')));
-		int carId = Integer.parseInt(tmp.substring(tmp.indexOf('_')+1));
+		int  carId= Integer.parseInt(tmp.substring(0, tmp.indexOf('_')));
+		int newOwnerId = Integer.parseInt(tmp.substring(tmp.indexOf('_')+1));
 		try {
 			VehicleDAO.changeOwner(DbUtil.getConn(), newOwnerId, carId);
 		} catch (SQLException e) {

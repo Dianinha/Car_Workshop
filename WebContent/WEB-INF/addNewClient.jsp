@@ -5,22 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
+<%@ include file="fragments/libs.jspf"%>
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>MENU</h1>
-	<a href="../Car_Workshop/clients">Klienci</a>
-	<br>
-	<a href="">Zlecenia</a>
-	<br>
-	<a href="../Car_Workshop/employees">Pracownicy</a>
-	<br>
-	<a href="">Raporty</a>
-	<br>
-	<br>
-	<h2>Dodaj nowego klienta:</h2>
-	<br>
-	<br>
+<%@ include file="fragments/menu.jspf"  %>
 	
 	<form action="/Car_Workshop/addNewClient" method="post">
   Imię:<br>
@@ -39,6 +29,7 @@
   <br>
   <input type="submit" value="Zapisz">
 </form> 
-	
+	<%@ include file="fragments/footer.jspf"  %>
+	<%@ include file="fragments/scripts.jspf"%>
 </body>
 </html>

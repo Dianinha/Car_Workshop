@@ -5,18 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
 <title>Insert title here</title>
 </head>
 <body>
-<h1>MENU</h1>
-<a href="../Car_Workshop/clients">Klienci</a>
-<br>
-<a href="">Zlecenia</a>
-<br>
-<a href="../Car_Workshop/employees">Pracownicy</a>
-<br>
-<a href="">Raporty</a>
-<br>
+<%@ include file="fragments/menu.jspf"  %>
 <br>
 <h2>Lista pracowników:</h2>
 <br>

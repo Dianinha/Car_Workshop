@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.coderslab.dao.CustomerDAO;
 import pl.coderslab.dao.DbUtil;
 import pl.coderslab.dao.VehicleDAO;
 

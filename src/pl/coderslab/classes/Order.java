@@ -8,6 +8,7 @@ public class Order {
 	private int id;
 	private LocalDateTime acceptance;
 	private LocalDateTime repairStartTime;
+	private LocalDateTime repairEndTime;
 	private Employee assignedWorker;
 	private String problemDescription;
 	private String repairDescription;
@@ -24,7 +25,7 @@ public class Order {
 
 	public Order(LocalDateTime acceptance, LocalDateTime repairStartTime, Employee assignedWorker,
 			String problemDescription, String repairDescription, Status status, Vehicle vehicle, double repairCost,
-			double partsCost, double repairTime) {
+			double partsCost, double repairTime, LocalDateTime repairEndTime) {
 		super();
 		this.id = 0;
 		this.acceptance = acceptance;
@@ -34,10 +35,12 @@ public class Order {
 		this.repairDescription = repairDescription;
 		this.status = status;
 		this.vehicle = vehicle;
-		this.repairCost = repairCost;
+//		this.repairCost = repairCost;
 		this.partsCost = partsCost;
 		this.costPerHour = this.assignedWorker.getCostPerHour();
 		this.repairTime = repairTime;
+		this.repairEndTime=repairEndTime;
+		this.repairCost = this.partsCost+ this.repairTime*this.costPerHour;
 	}
 
 	public int getId() {
@@ -135,6 +138,10 @@ public class Order {
 		this.repairCost = repairCost;
 		return this;
 	}
+	public Order setRepairCost() {
+		this.repairCost = this.partsCost+ this.repairTime*this.costPerHour;
+		return this;
+	}
 
 	public double getPartsCost() {
 		return partsCost;
@@ -166,6 +173,42 @@ public class Order {
 	public Order setRepairTime(double repairTime) {
 		this.repairTime = repairTime;
 		return this;
+	}
+	
+	
+	
+	public LocalDateTime getRepairEndTime() {
+		return repairEndTime;
+	}
+
+	public void setRepairEndTime(LocalDateTime repairEndTime) {
+		this.repairEndTime = repairEndTime;
+	}
+
+	public String showStatus(){
+		String result="";
+		
+		switch (this.status) {
+		case ACCEPTED: 
+			result= "NIEZAAKCEPTOWANE";
+			break;
+		case APPROVED: 
+			result= "ZAAKCEPTOWANE";
+			break;
+		case IN_REPAIR:
+			result= "W REALIZACJI";
+			break;
+		case READY_TO_RETURN:
+			result= "GOTOWE DO ODBIORU";
+			break;
+		case CANCELLED:
+			result= "ANULOWANE";
+			break;
+		default:
+			break;
+			
+		}
+		return result;
 	}
 
 	@Override

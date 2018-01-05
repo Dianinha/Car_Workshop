@@ -8,14 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>MENU</h1>
-	<a href="../Car_Workshop/clients">Klienci</a>
-	<br>
-	<a href="">Zlecenia</a>
-	<br>
-	<a href="../Car_Workshop/employees">Pracownicy</a>
-	<br>
-	<a href="">Raporty</a>
+	<%@ include file="fragments/menu.jspf"  %>
 	<br>
 	<br>
 	<h2>Dodaj samochód:</h2>
@@ -39,6 +32,6 @@
   <br>
   <input type="submit" value="Zapisz">
 </form> 
-	
+	<%@ include file="fragments/footer.jspf"  %>
 </body>
 </html>

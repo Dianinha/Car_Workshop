@@ -1,0 +1,56 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+	
+		font-family:'Coda',sans-serif;
+		margin-bottom: 60px;
+	}
+	
+body > .container {
+  padding: 60px 15px 0;
+}
+
+a {
+	color: #f4bb00;
+	}
+
+a:hover {
+    color: #cd9d00;
+	text-decoration: none;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #f4bb00;
+  color: #ffffff;
+}
+
+.footer a {
+	color: #ffffff;
+}
+
+.footer a:hover {
+	color: #cd9d00;
+}
+
+	
+.text-muted {
+	  color: #ffffff !important;
+}
+
+table {
+	background-color: #fbfbfb !important;
+	
+}
+
+.table > tbody > tr > td  {
+     vertical-align: middle;
+	
+}
