@@ -7,13 +7,13 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
+
 <title>Klienci</title>
 
 <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-
+<link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
 </head>
 <body>
 <%@ include file="fragments/menu.jspf"  %>
