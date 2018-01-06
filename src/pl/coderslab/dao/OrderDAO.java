@@ -196,6 +196,43 @@ public class OrderDAO {
 
 	}
 	
+	public static Order[] loadByEmployeeId(Connection conn, int id) {
+
+		List<Order> Orders = new ArrayList<>();
+		Statement st;
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM Orders WHERE worker_id="+id);
+			while (rs.next()) {
+				Order tmpOrder = new Order();
+				tmpOrder.setAcceptance(rs.getTimestamp("accepted").toLocalDateTime());
+				Employee assigned = EmployeeDAO.loadById(conn, rs.getInt("worker_id"));
+				tmpOrder.setAssignedWorker(assigned).setProblemDescription(rs.getString("problem_desc"))
+						.setRepairDescription(rs.getString("solution_desc")).setStatus(rs.getInt("status"));
+				Vehicle vehicle = VehicleDAO.loadById(conn, rs.getInt("vehicle_id"));
+				tmpOrder.setVehicle(vehicle).setRepairTime(rs.getDouble("repairTime"))
+						.setRepairCost(rs.getDouble("repair_cost")).setPartsCost(rs.getDouble("parts_cost"))
+						.setCostPerHour();
+				if (rs.getTimestamp("startTime")!=null) {
+					tmpOrder.setRepairStartTime(rs.getTimestamp("startTime").toLocalDateTime());
+				} 
+				if (rs.getTimestamp("endTime")!=null) {
+					tmpOrder.setRepairEndTime(rs.getTimestamp("endTime").toLocalDateTime());
+				} 
+				tmpOrder.setId(rs.getInt("id"));
+				Orders.add(tmpOrder);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Order[] OrdersArr = new Order[Orders.size()];
+		Orders.toArray(OrdersArr);
+
+		return OrdersArr;
+
+	}
+	
 	public static boolean changeStatus(Connection conn, int id, int status) {
 		boolean result = false;
 		String query = "UPDATE Orders SET status=? WHERE id=?";

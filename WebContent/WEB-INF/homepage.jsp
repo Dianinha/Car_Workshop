@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
+<%@ include file="fragments/libs.jspf"%>
 <title>Insert title here</title>
 </head>
 <body>
@@ -19,19 +20,21 @@
             <th>ZLECENIE</th>
             <th>PRACOWNIK </th>
             <th>SAMOCHÓD</th>
-            <th>PODGLĄD</th>
+            <th></th>
             
         </tr>
         <c:forEach items="${orders}" var="order">
             <tr>
                 <td><c:out value="${order.id}" /></td>
                 <td><c:out value="${order.getAssignedWorker().getSurname()}" /></td>
-                <td><c:out value="${orger.getVehicle().getBrand()}" /></td>
-                <td><a href="">Zobacz zlecenie</a></td>
+                <td><c:out value="${order.vehicle.brand} ${order.vehicle.model}" /></td>
+                <td><a href="../Car_Workshop/orders?id=${order.id}">
+                                        Szczegóły</a></td>
             </tr>
 
         </c:forEach>
     </table>
     <%@ include file="fragments/footer.jspf"  %>
+        <%@ include file="fragments/scripts.jspf"%>
 </body>
 </html>

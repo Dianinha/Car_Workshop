@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pl.coderslab.classes.Employee;
+import pl.coderslab.classes.Order;
 import pl.coderslab.dao.DbUtil;
 import pl.coderslab.dao.EmployeeDAO;
+import pl.coderslab.dao.OrderDAO;
 
 /**
  * Servlet implementation class employees
@@ -37,6 +39,16 @@ public class employees extends HttpServlet {
 		try {
 			Employee[] empls = EmployeeDAO.loadAll(DbUtil.getConn());
 			request.setAttribute("empls", empls);
+			if(request.getParameter("id")!=null){
+				int id = Integer.parseInt(request.getParameter("id"));
+				Order[] orders = OrderDAO.loadByEmployeeId(DbUtil.getConn(), id);
+				request.setAttribute("orders", orders);
+				request.setAttribute("showOrders", "yes");
+			}
+			else {
+				request.setAttribute("showOrders", null);
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

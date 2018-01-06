@@ -124,6 +124,7 @@
             </div>
             </div>
         </div>
+         </c:if>
    
     <c:if test="${not empty noCars}">
 <div class="container">
@@ -145,7 +146,7 @@
 </div>
     </div>
         </div>
-         </c:if>
+        
         
 <%@ include file="fragments/footer.jspf"  %>
     
