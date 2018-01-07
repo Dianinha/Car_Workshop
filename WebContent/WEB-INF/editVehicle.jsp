@@ -5,31 +5,55 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
-<title>Insert title here</title>
+
+<%@ include file="fragments/libs.jspf"%>
+<link type="text/css" rel="stylesheet"
+	href="<c:url value="/res/css/main.css" />" />
+<title>Edytuj samochód - DIANINHA WORKSHOP</title>
 </head>
 <body>
 	<%@ include file="fragments/menu.jspf"  %>
-	<h2>Edytuj samochód:</h2>
-	<form action="/Car_Workshop/editVehicle?carId=${param.carId}&ownerId=${param.ownerId}" method="post">
-  Model:<br>
-  <input type="text" name="model" value="${veh.model}"><br>
-  Marka:<br>
-  <input type="text" name="brand" value="${veh.brand}">
-  <br>
-  Rok produkcji:<br>
-  <input type="number" name="year" min="1886" max="2018" value="${veh.productionYear}">
-  <br>
-  Numer rejestracyjny:<br>
-   <input type="text" name="regNum" value="${veh.registrationNumber}">
-  <br>
-  Data następnego przeglądu:<br>
-  <input type="date" name="nextRev" value="${veh.nextReview}">
-  <br>
-  <input type="submit" value="Zapisz">
-</form> 
-	<%@ include file="fragments/footer.jspf"  %>
 	
-	<%@ include file="fragments/footer.jspf"  %>
+<div class="container-fluid">
+  <div class="row">
+			<div class="col mt-5">
+	<h2>Edytuj dane klienta:</h2>
+	</div>
+		</div>
+	<div class="row">
+			<div class="col mb-4">
+			
+	<form action="/Car_Workshop/editVehicle?carId=${param.carId}&ownerId=${param.ownerId}" method="post">
+	
+	<div class="form-group col-sm-2">
+  		<label>Model: </label>
+		<input type="text" name="model" value="${veh.model}" class="form-control">
+	</div>
+	<div class="form-group col-sm-2">
+  		<label>Marka: </label>
+		<input type="text" name="brand" value="${veh.brand}" class="form-control">
+	</div>
+	<div class="form-group col-sm-2">
+  		<label>Rok produkcji: </label>
+		<input type="number" name="year" min="1886" max="2018" value="${veh.productionYear}" class="form-control">
+	</div>
+	<div class="form-group col-sm-2">
+  		<label>Numer rejestracyjny: </label>
+		<input type="text" name="regNum" value="${veh.registrationNumber}" class="form-control">
+	</div>
+	<div class="form-group col-sm-2">
+  		<label>Data następnego przeglądu: </label>
+		<input type="date" name="nextRev" value="${veh.nextReview}" class="form-control">
+	</div>
+	
+  <input type="submit" value="✔ Zapisz" class="btn special">
+</form> 
+
+</div>
+</div>
+
+</div>
+<%@ include file="fragments/footer.jspf"  %>
+	<%@ include file="fragments/scripts.jspf"%>	
 </body>
 </html>

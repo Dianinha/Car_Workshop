@@ -5,33 +5,55 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
+<%@ include file="fragments/libs.jspf"%>
+<link type="text/css" rel="stylesheet"
+	href="<c:url value="/res/css/main.css" />" />
+<title>Dodaj nowy pojazd - DIANINHA WORKSHOP</title>
 </head>
 <body>
 	<%@ include file="fragments/menu.jspf"  %>
-	<br>
-	<br>
-	<h2>Dodaj samochód:</h2>
-	<br>
-	<br>
+	<div class="container-fluid">
+  <div class="row">
+			<div class="col mt-5">
+	<h2>Dodaj nowy samochód:</h2>
+	</div>
+		</div>
+		
+	<div class="row">
+			<div class="col mb-4">
 	
 	<form action="/Car_Workshop/addNewVehicle?ownerId=${param.ownerId}" method="post">
-  Model:<br>
-  <input type="text" name="model"><br>
-  Marka:<br>
-  <input type="text" name="brand">
-  <br>
-  Rok produkcji:<br>
-  <input type="number" name="year" min="1886" max="2018">
-  <br>
-  Numer rejestracyjny:<br>
-   <input type="text" name="regNum">
-  <br>
-  Data następnego przeglądu:<br>
-  <input type="date" name="nextRev">
-  <br>
-  <input type="submit" value="Zapisz">
-</form> 
+  <div class="form-group col-sm-4">
+  <label>Model:</label>
+  <input type="text" name="model" class="form-control">
+  </div>
+  <div class="form-group col-sm-4">
+  <label> Marka:</label>
+  <input type="text" name="brand" class="form-control">
+  </div>
+  <div class="form-group col-sm-4">
+  <label> Rok produkcji:</label>
+  <input type="number" name="year" min="1886" max="2018" class="form-control">
+  </div>
+  <div class="form-group col-sm-4">
+  <label> Numer rejestracyjny:</label>
+  <input type="text" name="regNum" class="form-control">
+  </div>
+  <div class="form-group col-sm-4">
+  <label> Data następnego przeglądu:</label>
+  <input type="date" name="nextRev" class="form-control">
+  </div>
+  
+  <input type="submit" value="✔ Zapisz" class="btn special">
+  
+</form>
+
+</div>
+</div>
+
+</div> 
 	<%@ include file="fragments/footer.jspf"  %>
+	<%@ include file="fragments/scripts.jspf"%>
 </body>
 </html>

@@ -5,34 +5,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<%@ include file="fragments/libs.jspf"%>
 <link type="text/css" rel="stylesheet"
 	href="<c:url value="/res/css/main.css" />" />
-<%@ include file="fragments/libs.jspf"%>
-<title>Insert title here</title>
+<title>Zamówienia - DIANINHA WORKSHOP</title>
 </head>
 <body>
 	<%@ include file="fragments/menu.jspf"%>
 
 
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm">
+			<div class="col mt-5">
 				<h2>Lista zleceń:</h2> 
-				Filtruj:
-        <a href="../Car_Workshop/orders?status=1"><button type="button" class="btn" name="filter1">niezaapceptowane</button> </a>
-        <a href="../Car_Workshop/orders?status=2"><button type="button" class="btn" name="filter1">zaapceptowane</button> </a>
-        <a href="../Car_Workshop/orders?status=3"><button type="button" class="btn" name="filter1">w realizacji</button> </a>
-        <a href="../Car_Workshop/orders?status=4"><button type="button" class="btn" name="filter1">gotowe</button> </a>
-        <a href="../Car_Workshop/orders?status=5"><button type="button" class="btn" name="filter1">anulowane</button> </a>
-        <a href="../Car_Workshop/orders?status=0"><button type="button" class="btn" name="filter1">wszystkie</button> </a>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col mt-2">
+				
+	
+         Filtruj:
+        <a href="../Car_Workshop/orders?status=1"><button type="button" class="btn listed" name="filter1">niezaapceptowane</button> </a>
+        <a href="../Car_Workshop/orders?status=2"><button type="button" class="btn listed" name="filter1">zaapceptowane</button> </a>
+        <a href="../Car_Workshop/orders?status=3"><button type="button" class="btn listed" name="filter1">w realizacji</button> </a>
+        <a href="../Car_Workshop/orders?status=4"><button type="button" class="btn listed" name="filter1">gotowe</button> </a>
+        <a href="../Car_Workshop/orders?status=5"><button type="button" class="btn listed" name="filter1">anulowane</button> </a>
+        <a href="../Car_Workshop/orders?status=0"><button type="button" class="btn special" name="filter1">wszystkie</button> </a>
          <br>
          <c:if test="${not empty message}">
-         <c:out value="${message}" />
+         <div class="alert alert-warning mt-3">
+         <c:out value="${message}" /></div>
          </c:if>
          
          
-				<br>
-				<table class="table">
+        	</div>
+         </div>
+         
+         <div class="row">
+			<div class="col"> 
+         
+				
+				<div class="table-responsive table-striped">
+				 <table class="table">
 					<thead>
 						<tr>
 							<th>DATA ZLECENIA</th>
@@ -54,7 +70,7 @@
 								<td><c:out value="${order.assignedWorker.surname}" /></td>
 								<td><c:out value="${order.showStatus()}" /></td>
 								<td><c:out value="${order.vehicle.brand} ${order.vehicle.model}" /></td>
-								<td><a href="../Car_Workshop/orders?id=${order.id}">
+								<td><a href="../Car_Workshop/orders?id=${order.id}#orderInfo">
 										Szczegóły</a></td>
 								<td><a href="../Car_Workshop/changeOrderStatus?orderId=${order.id}&currentStatus=${order.getStatusIinInt()}">Zmień status</a></td>
 							</tr>
@@ -62,56 +78,95 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				</div>
 			</div>
 		</div>
-
-		<div class="row mb-1">
-			<div class="col-sm">
+		
+	
+	
+		<div class="row">
+			<div class="col mb-4">
+			
 				<a href="../Car_Workshop/addNewOrder">
-					<button type="button" class="btn" name="addOrder">Dodaj
+					<button type="button" class="btn special" name="addOrder">◤ Dodaj
 						nowe zlecenie</button>
 				</a>
 			</div>
 		</div>
-	</div>
+	
  <c:if test="${not empty showDetails}">
-        <div class="container">
+     
   <div class="row">
-    <div class="col-sm">
+    <div class="col mb-3" id="orderInfo">
+    
             <h2>Szczegóły zlecenia:</h2>
-            <br>
-            DATA AKCEPTACJI: <c:out value="${dOrder.acceptance}" />
-            <br>
-            DATA ROZPOCZĘCIA: <c:out value="${dOrder.repairStartTime}" />
-            <br>
-            DATA ZAKOŃCZENIA: <c:out value="${dOrder.repairEndTime}" />
-            <br>
-            PRZYPISANY PRACOWNIK: <c:out value="${dOrder.assignedWorker.surname} ${dOrder.assignedWorker.name}" />
-            <br>
-            STATUS: <c:out value="${dOrder.showStatus()}" />
-            <br>
-            POJAZD: <c:out value="${dOrder.vehicle.brand} ${dOrder.vehicle.model}" />
-            <br>
-            OPIS PROBLEMU: <c:out value="${dOrder.problemDescription}" />
-            <br>
-            OPIS ROZWIĄZANIA: <c:out value="${dOrder.repairDescription}" />
-            <br>
-            KOSZT NAPRAWY: <c:out value="${dOrder.repairCost} PLN" />
-            <br>
-            KOSZT CZĘŚCI: <c:out value="${dOrder.partsCost} PLN" />
-            KOSZT ROBOCZOGODZINY: <c:out value="${dOrder.costPerHour} PLN/h" />
-            CZAS NAPRAWY: <c:out value="${dOrder.repairTime} h" />
-            <br>
-            <a href="../Car_Workshop/editOrder?dOrderId=${dOrder.id}"><button type="button" class="btn" name="edit">Edytuj</button></a>
-             <a href="../Car_Workshop/deleteOrder?dOrderId=${dOrder.id}"><button type="button" class="btn" name="delete}">Anuluj zlecenie</button></a>
+    </div>
+    </div>
+    
+    <div class="row">
+    <div class="col">
+    
+            <div class="table-responsive table-striped">
+				<table class="table">
+					<tbody>
+            <tr>
+            <td>DATA AKCEPTACJI:</td><td> <c:out value="${dOrder.acceptance}" /></td>
+            </tr>
+            <tr>
+            <td>DATA ROZPOCZĘCIA:</td><td> <c:out value="${dOrder.repairStartTime}" /></td>
+            </tr>
+            <tr>
+            <td>DATA ZAKOŃCZENIA:</td><td> <c:out value="${dOrder.repairEndTime}" /></td>
+            </tr>
+            <tr>
+            <td>PRZYPISANY PRACOWNIK:</td><td> <c:out value="${dOrder.assignedWorker.surname} ${dOrder.assignedWorker.name}" /></td>
+            </tr>
+            <tr>
+            <td>STATUS:</td><td> <c:out value="${dOrder.showStatus()}" /></td>
+            </tr>
+            <tr>
+            <td>POJAZD:</td><td> <c:out value="${dOrder.vehicle.brand} ${dOrder.vehicle.model}" /></td>
+            </tr>
+            <tr>
+            <td>OPIS PROBLEMU:</td><td> <c:out value="${dOrder.problemDescription}" /></td>
+            </tr> 
+            <tr>
+            <td>OPIS ROZWIĄZANIA:</td><td> <c:out value="${dOrder.repairDescription}" /></td>
+            </tr>
+            <tr>
+            <td>KOSZT NAPRAWY:</td><td> <c:out value="${dOrder.repairCost} PLN" /></td>
+            </tr>
+            <tr>
+            <td>KOSZT CZĘŚCI:</td><td> <c:out value="${dOrder.partsCost} PLN" /></td>
+            </tr>
+            <tr>
+            <td>KOSZT ROBOCZOGODZINY:</td><td> <c:out value="${dOrder.costPerHour} PLN/h" /></td>
+            </tr>
+            <tr>
+            <td>CZAS NAPRAWY:</td><td> <c:out value="${dOrder.repairTime} h" /></td>
+            </tr>
+            
+            </tbody>
+            </table>
+            
+             </div>
             </div>
             </div>
-        </div>
+            
+            <div class="row">
+    <div class="col mb-4">
+           
+            <a href="../Car_Workshop/editOrder?dOrderId=${dOrder.id}"><button type="button" class="btn special" name="edit">✎ Edytuj</button></a>
+             <a href="../Car_Workshop/deleteOrder?dOrderId=${dOrder.id}"><button type="button" class="btn listed" name="delete}">✘ Anuluj zlecenie</button></a>
+            
+            	</div></div>
+           
+    </div>
    
    </c:if>
-   <br>
-   <br>
-   <br>
+   </div>
+ 
+  
 
 	<%@ include file="fragments/footer.jspf"%>
 	<%@ include file="fragments/scripts.jspf"%>

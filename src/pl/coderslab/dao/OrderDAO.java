@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +85,41 @@ public class OrderDAO {
 
 		return OrdersArr;
 	}
+	
+//	public static Order[] loadAllFromDateInterval(Connection conn, LocalDate start, LocalDate stop, int reportType) {
+//		List<Order> Orders = new ArrayList<>();
+//		PreparedStatement pst;
+//		String query1 = "SELECT * FROM Orders WHERE startTime BETWEEN ? and ?";
+//		String query2 = "SELECT * FROM Orders WHERE endTime BETWEEN ? and ?";
+//		Timestamp startReport = Timestamp.valueOf(start.atStartOfDay());
+//		Timestamp stopReport = Timestamp.valueOf(start.plusDays(1).atStartOfDay());
+//		try {
+//			if (reportType==1) {
+//				pst = conn.prepareStatement(query1);
+//			} else {
+//				pst = conn.prepareStatement(query2);
+//			}
+//			pst.setTimestamp(1, startReport);
+//			pst.setTimestamp(2, stopReport);
+//			ResultSet rs = pst.executeQuery();
+//			while (rs.next()) {
+//				Order tmpOrder = new Order();
+//				Employee assigned = EmployeeDAO.loadById(conn, rs.getInt("worker_id"));
+//				tmpOrder.setAssignedWorker(assigned).setRepairTime(rs.getDouble("repairTime"))
+//						.setRepairCost(rs.getDouble("repair_cost")).setPartsCost(rs.getDouble("parts_cost"))
+//						.setCostPerHour();
+//				Orders.add(tmpOrder);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		Order[] OrdersArr = new Order[Orders.size()];
+//		Orders.toArray(OrdersArr);
+//
+//		return OrdersArr;
+//	}
+//	
 
 	public static boolean saveToDB(Connection conn, Order order) {
 		boolean result = false;
@@ -242,7 +279,6 @@ public class OrderDAO {
 			ps.setInt(1, status);
 			ps.setInt(2, id);
 			ps.executeUpdate();
-			System.out.println("Usunięto");
 			result = true;
 
 		} catch (SQLException e) {

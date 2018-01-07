@@ -5,51 +5,73 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
+
 <%@ include file="fragments/libs.jspf"%>
-<title>Insert title here</title>
+<link type="text/css" rel="stylesheet"
+	href="<c:url value="/res/css/main.css" />" />
+<title>Edytuj zlecenia - DIANINHA WORKSHOP</title>
 </head>
 <body>
 <%@ include file="fragments/menu.jspf"  %>
-	<div>
+
+<div class="container-fluid">
+  <div class="row">
+			<div class="col mt-5">
+	<h2>Edytuj dane klienta:</h2>
+	</div>
+		</div>
+	<div class="row">
+			<div class="col mb-4">
 	<form action="/Car_Workshop/editOrder" method="post" id="editOrder">
-	Wybierz pracownika:
- <select class="form-control" name="employeeId">
- <c:forEach items="${employees}" var="empl">
- <option value="${empl.id}" <c:if test="${empl.id== order.assignedWorker.id}"> selected="selected"</c:if>>
- <c:out value="${empl.name} ${empl.surname}" />
-</option>
-</c:forEach>
-</select> 
-<br>
-Wybierz pojazd:
-<select class="form-control" name="vehId">
- <c:forEach items="${vehicles}" var="veh">
- <option value="${veh.id}" <c:if test="${veh.id== order.vehicle.id}"> selected="selected"</c:if>>
- <c:out value="${veh.brand} ${veh.model}" />
-</option>
-</c:forEach>
-</select> 
-<br>
-Opisz problem: 
-<br>
-<textarea name="problem" form="editOrder"> ${order.problemDescription} </textarea>
-<br>
-Opisz rozwiązanie: 
-<br>
-<textarea name="solution" form="editOrder">${order.repairDescription} </textarea>
-<br>
-Podaj koszt użytych części:
-<input type="number" name="partsCost" step="0.01" value="${order.partsCost}">
-<br>
-Podaj czas pracy:
-<input type="number" name="repairTime" step="0.01" value="${order.repairTime}">
-<br>
-Koszt pracownika: <c:out value="${order.costPerHour}"/>
-  <input type="submit" value="Zapisz">
+	
+	<div class="form-group col-sm-2">
+  		<label>Wybierz pracownika:</label>
+  		 <select class="form-control" name="employeeId" class="form-control">
+ 			<c:forEach items="${employees}" var="empl">
+ 			<option value="${empl.id}" <c:if test="${empl.id== order.assignedWorker.id}"> selected="selected"</c:if>>
+ 			<c:out value="${empl.name} ${empl.surname}" />
+			</option>
+			</c:forEach>
+			</select>
+  	</div>
+  	<div class="form-group col-sm-2">
+  		<label>Wybierz pojazd:</label>
+  		<select class="form-control" name="vehId" class="form-control">
+ 			<c:forEach items="${vehicles}" var="veh">
+ 			<option value="${veh.id}" <c:if test="${veh.id== order.vehicle.id}"> selected="selected"</c:if>>
+ 			<c:out value="${veh.brand} ${veh.model}" />
+			</option>
+			</c:forEach>
+		</select> 
+		</div>
+	<div class="form-group col-sm-4">
+  		<label>Opisz problem:</label>
+		<textarea name="problem" form="editOrder" class="form-control"> ${order.problemDescription} </textarea>
+	</div>
+	<div class="form-group col-sm-4">
+  		<label>Opisz rozwiązanie: </label>
+		<textarea name="solution" form="editOrder" class="form-control">${order.repairDescription} </textarea>
+	</div>
+	<div class="form-group col-sm-2">
+  		<label>Podaj koszt użytych części: </label>
+		<input type="number" name="partsCost" step="0.01" value="${order.partsCost}" class="form-control">
+	</div>
+	<div class="form-group col-sm-2">
+  		<label>Podaj czas pracy: </label>
+		<input type="number" name="repairTime" step="0.01" value="${order.repairTime}" class="form-control">
+	</div>
+	<div class="form-group col-sm-2">
+  		<label>Koszt pracownika: </label>
+		<c:out value="${order.costPerHour}"/>
+	</div>
+	<input type="submit" value="✔ Zapisz" class="btn special">
 </form> 
+
 </div>
-	<%@ include file="fragments/footer.jspf"  %>
-	<%@ include file="fragments/scripts.jspf"%>
+</div>
+
+</div>
+<%@ include file="fragments/footer.jspf"  %>
+	<%@ include file="fragments/scripts.jspf"%>	
 </body>
 </html>

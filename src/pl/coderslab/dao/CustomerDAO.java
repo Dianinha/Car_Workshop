@@ -37,6 +37,31 @@ public class CustomerDAO {
 
 		return CustomersArr;
 	}
+	
+	public static Customer[] search(Connection conn, String search) {
+		List<Customer> Customers = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM Customers WHERE active=1 AND surname LIKE \"%"+search+"%\"";
+			PreparedStatement pst = conn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				Customer tmpCustomer = new Customer();
+				tmpCustomer.setName(rs.getString("name")).setSurname(rs.getString("surname"))
+						.setAddress(rs.getString("address")).setPhoneNumber(rs.getInt("phone"));
+				LocalDate birthday = rs.getDate("birthday").toLocalDate();
+				tmpCustomer.setBirthday(birthday);
+				tmpCustomer.setId(rs.getInt("id"));
+				Customers.add(tmpCustomer);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Customer[] CustomersArr = new Customer[Customers.size()];
+		Customers.toArray(CustomersArr);
+
+		return CustomersArr;
+	}
 
 	public static boolean saveToDB(Connection conn, Customer customer) {
 		boolean result = false;

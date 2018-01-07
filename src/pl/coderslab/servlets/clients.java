@@ -71,7 +71,17 @@ public class clients extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		
+		String query = request.getParameter("searchClients");
+		try {
+			Customer[] clients = CustomerDAO.search(DbUtil.getConn(), query);
+			request.setAttribute("clients", clients);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		getServletContext().getRequestDispatcher("/WEB-INF/clients.jsp").forward(request, response);
 	}
 
 }

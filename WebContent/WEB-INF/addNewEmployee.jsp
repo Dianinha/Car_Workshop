@@ -5,33 +5,56 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
-<title>Dodaj pracownika</title>
+
 <%@ include file="fragments/libs.jspf"%>
+<link type="text/css" rel="stylesheet"
+	href="<c:url value="/res/css/main.css" />" />
+<title>Dodaj nowego pracownika - DIANINHA WORKSHOP</title>
 </head>
 <body>
 <%@ include file="fragments/menu.jspf"  %>
+
+<div class="container-fluid">
+  <div class="row">
+			<div class="col mt-5">
 	<h2>Dodaj nowego pracownika:</h2>
+	</div>
+		</div>
+		
+		<div class="row">
+			<div class="col mb-4">
+			
 	<form action="/Car_Workshop/addNewEmployee" method="post" id="addEmpl">
-  Imię:<br>
-  <input type="text" name="name"><br>
-  Nazwisko:<br>
-  <input type="text" name="surname">
-  <br>
-  Adres:<br>
-  <input type="text" name="address">
-  <br>
-  Telefon:<br>
-  <input type="number" name="phone" min="000000000" max="999999999">
-  <br>
-  Notatka: <br>
-  <textarea name="note" form="addEmpl">Dodaj notatkę...</textarea>
-  <br>
-  Koszt roboczogodziny:<br>
-  <input type="number" name="cost" step="0.01">
-  <br>
-  <input type="submit" value="Zapisz">
+  <div class="form-group col-sm-2">
+  <label>Imię:</label>
+  <input type="text" name="name" class="form-control">
+  </div>
+  <div class="form-group col-sm-2">
+  <label>Nazwisko:</label>
+  <input type="text" name="surname" class="form-control">
+  </div>
+  <div class="form-group col-sm-4">
+  <label>Adres:</label>
+  <input type="text" name="address" class="form-control">
+  </div>
+  <div class="form-group col-sm-2">
+  <label>Telefon:</label>
+  <input type="number" name="phone" min="000000000" max="999999999" class="form-control">
+  </div>
+  <div class="form-group col-sm-6">
+  <label>Notatka:</label>
+  <textarea name="note" form="addEmpl" class="form-control">Dodaj notatkę...</textarea>
+  </div>
+  <div class="form-group col-sm-2">
+  <label>Koszt roboczogodziny:</label>
+  <input type="number" name="cost" step="0.01" class="form-control">
+  </div>
+  <input type="submit" value="✔ Zapisz" class="btn special">
 </form> 
+</div>
+</div>
+
+</div>
 	<%@ include file="fragments/footer.jspf"  %>
 	<%@ include file="fragments/scripts.jspf"%>
 </body>

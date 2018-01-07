@@ -5,30 +5,53 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="<c:url value="/res/css/main.css" />" />
+
 <%@ include file="fragments/libs.jspf"%>
-<title>Insert title here</title>
+<link type="text/css" rel="stylesheet"
+	href="<c:url value="/res/css/main.css" />" />
+<title>Dodaj nowego klienta - DIANINHA WORKSHOP</title>
 </head>
 <body>
 <%@ include file="fragments/menu.jspf"  %>
-	
-	<form action="/Car_Workshop/addNewClient" method="post">
-  Imię:<br>
-  <input type="text" name="name"><br>
-  Nazwisko:<br>
-  <input type="text" name="surname">
-  <br>
-  Adres:<br>
-  <input type="text" name="address">
-  <br>
-  Telefon:<br>
-  <input type="number" name="phone" min="000000000" max="999999999">
-  <br>
-  Data Urodzin:<br>
-  <input type="date" name="bday">
-  <br>
-  <input type="submit" value="Zapisz">
+
+<div class="container-fluid">
+  <div class="row">
+			<div class="col mt-5">
+	<h2>Dodaj nowego klienta:</h2>
+	</div>
+		</div>
+		
+	<div class="row">
+			<div class="col mb-4">
+			
+	<form action="/Car_Workshop/addNewClient" method="post" >
+	<div class="form-group col-sm-2">
+  <label>Imię:</label>
+  <input type="text" name="name" class="form-control">
+  </div>
+  <div class="form-group col-sm-2">
+  <label>Nazwisko:</label>
+  <input type="text" name="surname" class="form-control">
+  </div>
+  <div class="form-group col-sm-4">
+  <label>Adres:</label>
+  <input type="text" name="address" class="form-control">
+  </div>
+  <div class="form-group col-sm-2">
+  <label>Telefon:</label>
+  <input type="number" name="phone" min="000000000" max="999999999" class="form-control">
+  </div>
+  <div class="form-group col-sm-4">
+  <label>Data Urodzin:</label>
+  <input type="date" name="bday" class="form-control">
+  </div>
+  <input type="submit" value="✔ Zapisz" class="btn special">
+  
 </form> 
+</div>
+</div>
+
+</div>
 	<%@ include file="fragments/footer.jspf"  %>
 	<%@ include file="fragments/scripts.jspf"%>
 </body>
